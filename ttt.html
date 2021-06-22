@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        #container { 
+            width: 600px;
+            height: 600px;
+            display: flex; 
+            flex-flow: row wrap; 
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+        }
+        .boardSpace { 
+            display: flex;
+            width: 33%;
+            height: 33%;
+            background-color: gray;
+            justify-content: center;
+            align-items: center;
+        }
+        .hover { 
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div id='container'>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>
+        <div class='boardSpace'>x</div>    
+        <div class='boardSpace'>x</div>    
+    </div>
+</body>
+<footer>
+    <script>
+        const boardSpace = document.querySelectorAll('.boardSpace') 
+        boardSpace.forEach((bs) => { 
+            bs.addEventListener('mouseenter', () => { 
+                bs.classList.add('hover')
+            })
+            bs.addEventListener('mouseleave', () => { 
+                bs.classList.remove('hover')
+            })
+        })
+    </script>
+
+</footer>
