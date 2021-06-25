@@ -26,28 +26,69 @@
 </head>
 <body>
     <div id='container'>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>
-        <div class='boardSpace'>x</div>    
-        <div class='boardSpace'>x</div>    
+        
     </div>
 </body>
 <footer>
     <script>
-        const boardSpace = document.querySelectorAll('.boardSpace') 
-        boardSpace.forEach((bs) => { 
-            bs.addEventListener('mouseenter', () => { 
-                bs.classList.add('hover')
-            })
-            bs.addEventListener('mouseleave', () => { 
-                bs.classList.remove('hover')
-            })
+        const PlayerX = (() => { 
+            let icon = 'X'
+            return { icon }
+        })()
+        const PlayerO = (() => { 
+            let icon = 'O'
+            return { icon }
         })
+        let currentPlayer = PlayerX 
+        const GameBoard = (() => { 
+            let gb = [
+                ['', '', ''], 
+                ['', '', ''], 
+                ['', '', ''],
+            ] 
+            const container = document.querySelector('#container')
+            const create = (() => { 
+                for (i=0; i<3; i++) { 
+                    for (j=0; j<3; j++) { 
+                        let boardSpace = document.createElement('div') 
+                        boardSpace.classList.add('boardSpace')
+                        boardSpace.classList.add(i.toString()+j.toString())
+                        container.appendChild(boardSpace)
+                    } 
+                }
+                const boardSpace = document.querySelectorAll('.boardSpace') 
+                boardSpace.forEach((bs) => { 
+                    bs.addEventListener('mouseenter', () => { 
+                        bs.classList.add('hover')
+                    })
+                    bs.addEventListener('mouseleave', () => { 
+                        bs.classList.remove('hover')
+                    }) 
+                    bs.addEventListener('click', () => { 
+                        if (!bs.textContent) { bs.textContent = currentPlayer.icon } 
+                        gb[parseInt(bs.classList[1].toString()[0])][parseInt(bs.classList[1].toString()[1])] = bs.textContent
+                        if (currentPlayer == PlayerX) currentPlayer = PlayerO() 
+                        else (currentPlayer = PlayerX)
+                        checkWinner() 
+
+                    })
+                })
+            })()
+            const checkWinner = () => { 
+                /* Check horizontal */ 
+                if (gb[0][0] && gb[0][1] && gb[0][2] === 'X') console.log(currentPlayer.icon + ' wins')
+                if (gb[1][0] && gb[1][1] && gb[1][2] === 'X') console.log('X wins')
+                if (gb[2][0] && gb[2][1] && gb[2][2] === 'X') console.log('X wins')
+                /* Check vertical */ 
+                if (gb[0][0] && gb[1][0] && gb[2][0] === 'X') console.log('X wins')
+                if (gb[0][1] && gb[1][1] && gb[2][1] === 'X') console.log('X wins')
+                if (gb[0][2] && gb[1][2] && gb[2][2] === 'X') console.log('X wins')
+                /* Check diagonal */ 
+                if (gb[0][0] && gb[1][1] && gb[2][2] === 'X') console.log('X wins')
+                if (gb[2][0] && gb[1][1] && gb[0][2] === 'X') console.log('X wins')
+            }
+            return { gb }
+        })()
     </script>
 
 </footer>
