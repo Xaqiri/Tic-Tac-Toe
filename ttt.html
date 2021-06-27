@@ -65,18 +65,24 @@
                         bs.classList.remove('hover')
                     }) 
                     bs.addEventListener('click', () => { 
-                        if (!bs.textContent) { bs.textContent = currentPlayer.icon } 
+                        if (!bs.textContent) { 
+                            bs.textContent = currentPlayer.icon 
+                            if (currentPlayer == PlayerX) currentPlayer = PlayerO() 
+                            else (currentPlayer = PlayerX)
+                        } 
                         gb[parseInt(bs.classList[1].toString()[0])][parseInt(bs.classList[1].toString()[1])] = bs.textContent
-                        if (currentPlayer == PlayerX) currentPlayer = PlayerO() 
-                        else (currentPlayer = PlayerX)
                         checkWinner() 
 
                     })
                 })
             })()
             const checkWinner = () => { 
+                checkWinnerX() 
+                checkWinnerO()
+            }
+            const checkWinnerX = () => { 
                 /* Check horizontal */ 
-                if (gb[0][0] && gb[0][1] && gb[0][2] === 'X') console.log(currentPlayer.icon + ' wins')
+                if (gb[0][0] && gb[0][1] && gb[0][2] === 'X') console.log('X wins')
                 if (gb[1][0] && gb[1][1] && gb[1][2] === 'X') console.log('X wins')
                 if (gb[2][0] && gb[2][1] && gb[2][2] === 'X') console.log('X wins')
                 /* Check vertical */ 
@@ -86,6 +92,19 @@
                 /* Check diagonal */ 
                 if (gb[0][0] && gb[1][1] && gb[2][2] === 'X') console.log('X wins')
                 if (gb[2][0] && gb[1][1] && gb[0][2] === 'X') console.log('X wins')
+            } 
+            const checkWinnerO = () => { 
+                /* Check horizontal */ 
+                if (gb[0][0] && gb[0][1] && gb[0][2] === 'O') console.log('O wins')
+                if (gb[1][0] && gb[1][1] && gb[1][2] === 'O') console.log('O wins')
+                if (gb[2][0] && gb[2][1] && gb[2][2] === 'O') console.log('O wins')
+                /* Check vertical */ 
+                if (gb[0][0] && gb[1][0] && gb[2][0] === 'O') console.log('O wins')
+                if (gb[0][1] && gb[1][1] && gb[2][1] === 'O') console.log('O wins')
+                if (gb[0][2] && gb[1][2] && gb[2][2] === 'O') console.log('O wins')
+                /* Check diagonal */ 
+                if (gb[0][0] && gb[1][1] && gb[2][2] === 'O') console.log('O wins')
+                if (gb[2][0] && gb[1][1] && gb[0][2] === 'O') console.log('O wins')
             }
             return { gb }
         })()
